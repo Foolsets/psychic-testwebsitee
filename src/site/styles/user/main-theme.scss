@@ -1,5 +1,5 @@
 // ============================================
-// MAIN THEME — Webpunk Skate (Complete)
+// SKATE WEBPUNK THEME — Рабочая версия
 // ============================================
 
 @import url('https://fonts.googleapis.com/css2?family=VT323&family=Permanent+Marker&family=Rubik+Mono+One&family=Space+Mono:wght@400;700&display=swap');
@@ -26,7 +26,7 @@
 }
 
 // ============================================
-// CRT SCANLINES + VERTICAL LINES
+// CRT SCANLINES + ВЕРТИКАЛЬНЫЕ ПОЛОСЫ
 // ============================================
 
 body::before {
@@ -47,6 +47,7 @@ body::before {
   z-index: 9999;
 }
 
+// Вертикальные полосы
 body::after {
   content: '';
   position: fixed;
@@ -72,16 +73,13 @@ body::after {
 }
 
 // ============================================
-// SIDEBAR (FIXED WIDTH — NO COMPRESSION!)
+// SIDEBAR
 // ============================================
 
 .filetree-sidebar {
   background: linear-gradient(180deg, var(--gray) 0%, var(--black) 100%);
   border-right: 3px solid var(--neon-green);
   box-shadow: 5px 0 40px rgba(57, 255, 20, 0.3);
-  min-width: 250px !important;
-  width: 250px !important;
-  flex-shrink: 0 !important;
   
   h1 {
     font-family: 'Permanent Marker', cursive;
@@ -91,7 +89,6 @@ body::after {
       3px 3px 0 var(--neon-pink),
       6px 6px 0 rgba(0,0,0,0.9);
     animation: float-gentle 3s ease-in-out infinite;
-    white-space: nowrap;
     
     a {
       color: var(--neon-green) !important;
@@ -112,7 +109,7 @@ body::after {
 }
 
 // ============================================
-// SEARCH BUTTON (WIGGLE ANIMATION)
+// SEARCH BUTTON — ДВИЖУЩАЯСЯ!
 // ============================================
 
 .search-button {
@@ -141,28 +138,13 @@ body::after {
 }
 
 // ============================================
-// LAYOUT FIX — NO MORE UGLY COMPRESSION!
-// ============================================
-
-.app-container {
-  display: flex;
-  min-height: 100vh;
-  width: 100%;
-}
-
-.content {
-  flex: 1;
-  min-width: 0;
-  width: 100%;
-}
-
-// ============================================
-// HOME PAGE — CRAZY MODE
+// HOME PAGE — ПРИКОЛЬНЫЙ ФОН + ASCII
 // ============================================
 
 body:has(.dg-home) {
   overflow-x: hidden;
   
+  // Анимированный градиентный фон
   .content {
     max-width: 100%;
     padding: 0;
@@ -177,6 +159,7 @@ body:has(.dg-home) {
     animation: gradient-shift 15s ease infinite;
     position: relative;
     
+    // Дополнительный слой с неоновыми кругами
     &::before {
       content: '';
       position: fixed;
@@ -205,7 +188,7 @@ body:has(.dg-home) {
     50% { opacity: 0.8; transform: scale(1.1); }
   }
   
-  // ASCII Skater
+  // ASCII Skater — фикс!
   .ascii-skater-container {
     position: fixed;
     bottom: 50px;
@@ -220,20 +203,25 @@ body:has(.dg-home) {
   .ascii-skater {
     position: absolute;
     bottom: 0;
+    font-family: 'VT323', monospace;
     font-size: 2rem;
+    color: var(--neon-green);
+    white-space: pre;
+    line-height: 1;
+    text-shadow: 0 0 10px var(--neon-green);
     animation: skate-run 12s linear infinite;
   }
   
   @keyframes skate-run {
     0% { left: -100px; }
     15% { left: 15%; bottom: 0; }
-    18% { bottom: 40px; }
+    18% { bottom: 40px; } // прыжок
     22% { bottom: 0; }
     35% { left: 35%; bottom: 0; }
-    38% { bottom: 60px; }
+    38% { bottom: 60px; } // прыжок выше
     42% { bottom: 0; }
     55% { left: 55%; bottom: 0; }
-    58% { bottom: 30px; }
+    58% { bottom: 30px; } // маленький прыжок
     62% { bottom: 0; }
     100% { left: 110%; }
   }
@@ -252,6 +240,7 @@ body:has(.dg-home) {
     z-index: 10;
     padding: 2rem;
     
+    // Плавающие элементы
     .floating-item {
       position: absolute;
       font-family: 'VT323', monospace;
@@ -468,31 +457,27 @@ body:has(.dg-home) {
 }
 
 // ============================================
-// AI ARTICLES — ORANGE TAGS + FULL WIDTH!
+// AI ARTICLES — ОРАНЖЕВЫЕ ТЕГИ, БЕЗ ДЕРГАНИЙ
 // ============================================
 
 body:not(:has(.dg-home)) {
   .content {
-    flex: 1;
-    padding: 3rem;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 3rem 2rem;
     background: rgba(10, 10, 10, 0.95);
     border-left: 1px solid rgba(57, 255, 20, 0.2);
-    min-height: 100vh;
-    width: calc(100% - 250px);
-    max-width: none !important;
-    margin: 0;
+    border-right: 1px solid rgba(57, 255, 20, 0.2);
   }
   
   h1 {
     font-family: 'Rubik Mono One', sans-serif;
-    font-size: 3rem;
+    font-size: 2.5rem;
     color: var(--neon-green);
     text-transform: uppercase;
     letter-spacing: -2px;
     margin-bottom: 1rem;
     position: relative;
-    display: block;
-    width: 100%;
     
     &::after {
       content: '';
@@ -506,37 +491,29 @@ body:not(:has(.dg-home)) {
     }
   }
   
-  // ORANGE TAGS — EXACTLY LIKE IMAGE 2!
+  // ОРАНЖЕВЫЕ ТЕГИ КАК БЫЛО!
   .tags {
     display: flex;
     gap: 0.5rem;
-    margin: 1.5rem 0;
+    margin-bottom: 2rem;
     flex-wrap: wrap;
-    width: 100%;
     
     .tag {
-      display: inline-block;
       background: var(--neon-orange) !important;
       color: var(--white) !important;
-      padding: 0.4rem 1rem !important;
+      padding: 0.3rem 0.8rem !important;
       font-family: 'Space Mono', monospace !important;
-      font-size: 0.9rem !important;
-      font-weight: bold !important;
+      font-size: 0.85rem !important;
       text-transform: uppercase !important;
-      border: 2px solid var(--neon-orange) !important;
+      border: none !important;
       border-radius: 0 !important;
-      box-shadow: 3px 3px 0 rgba(0,0,0,0.5) !important;
       transform: rotate(-1deg) !important;
       transition: all 0.2s !important;
-      margin: 0.2rem !important;
-      line-height: 1 !important;
-      text-decoration: none !important;
+      box-shadow: 2px 2px 0 rgba(0,0,0,0.5) !important;
       
       &:hover {
-        transform: rotate(0deg) scale(1.05) !important;
+        transform: rotate(0deg) scale(1.1) !important;
         box-shadow: 0 0 15px var(--neon-orange) !important;
-        background: var(--neon-yellow) !important;
-        border-color: var(--neon-yellow) !important;
       }
     }
   }
@@ -544,32 +521,15 @@ body:not(:has(.dg-home)) {
   .date {
     font-family: 'VT323', monospace;
     color: var(--neon-cyan);
-    font-size: 1.1rem;
+    font-size: 1rem;
     margin-bottom: 2rem;
     opacity: 0.8;
-  }
-  
-  .markdown-preview-view {
-    width: 100%;
-    max-width: 900px;
-  }
-  
-  p {
-    line-height: 1.8;
-    font-size: 1.15rem;
-    margin-bottom: 1.5rem;
-    color: rgba(240, 240, 240, 0.9);
-    max-width: 900px;
-    
-    &:hover {
-      color: var(--white);
-    }
   }
   
   h2 {
     font-family: 'Permanent Marker', cursive;
     color: var(--neon-pink);
-    font-size: 2rem;
+    font-size: 1.8rem;
     margin-top: 2.5rem;
     margin-bottom: 1rem;
     transform: rotate(-1deg);
@@ -581,15 +541,26 @@ body:not(:has(.dg-home)) {
     color: var(--neon-cyan);
     text-transform: uppercase;
     letter-spacing: 1px;
-    border-left: 4px solid var(--neon-cyan);
+    border-left: 3px solid var(--neon-cyan);
     padding-left: 1rem;
     margin-top: 2rem;
+  }
+  
+  p {
+    line-height: 1.8;
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+    color: rgba(240, 240, 240, 0.9);
+    
+    &:hover {
+      color: var(--white);
+    }
   }
   
   a {
     color: var(--neon-pink);
     text-decoration: none;
-    border-bottom: 2px solid transparent;
+    border-bottom: 1px solid transparent;
     transition: all 0.2s;
     
     &:hover {
@@ -602,12 +573,10 @@ body:not(:has(.dg-home)) {
     background: #080808 !important;
     border: 2px solid var(--neon-purple);
     margin: 2rem 0;
-    max-width: 100%;
-    overflow-x: auto;
     
     code {
       font-family: 'VT323', monospace;
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       color: var(--neon-green);
     }
   }
@@ -624,7 +593,6 @@ body:not(:has(.dg-home)) {
     border-left: 4px solid var(--neon-yellow);
     padding: 1.5rem;
     margin: 2rem 0;
-    max-width: 900px;
     
     .callout-title {
       font-family: 'Rubik Mono One', sans-serif;
@@ -634,11 +602,9 @@ body:not(:has(.dg-home)) {
   }
   
   .backlinks {
-    margin-top: 4rem;
+    margin-top: 3rem;
     padding-top: 2rem;
-    border-top: 3px dashed var(--neon-green);
-    width: 100%;
-    max-width: 900px;
+    border-top: 2px dashed var(--neon-green);
     
     .backlink-title {
       font-family: 'Permanent Marker', cursive;
@@ -647,24 +613,16 @@ body:not(:has(.dg-home)) {
       margin-bottom: 1rem;
     }
     
-    .backlink-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
+    a {
+      display: inline-block;
+      margin: 0.3rem;
+      padding: 0.4rem 0.8rem;
+      background: var(--gray);
+      border: 1px solid var(--neon-purple);
+      font-size: 0.9rem;
       
-      a {
-        display: inline-block;
-        padding: 0.5rem 1rem;
-        background: var(--gray);
-        border: 2px solid var(--neon-purple);
-        transform: rotate(-1deg);
-        transition: all 0.2s;
-        
-        &:hover {
-          transform: rotate(0deg) scale(1.05);
-          background: var(--neon-purple);
-          color: var(--white);
-        }
+      &:hover {
+        background: var(--neon-purple);
       }
     }
   }
@@ -675,8 +633,6 @@ body:not(:has(.dg-home)) {
 // ============================================
 
 .graph-view {
-  width: 100% !important;
-  height: 600px !important;
   background: radial-gradient(circle at center, var(--dark-gray) 0%, var(--black) 100%);
   border: 2px solid var(--neon-green);
   box-shadow: 0 0 40px rgba(57, 255, 20, 0.3);
@@ -703,44 +659,8 @@ body:not(:has(.dg-home)) {
 // ============================================
 
 @media (max-width: 800px) {
-  .filetree-sidebar {
-    width: 200px;
-    min-width: 200px;
-  }
-  
-  body:not(:has(.dg-home)) {
-    .content {
-      width: calc(100% - 200px);
-      padding: 2rem;
-    }
-    
-    h1 {
-      font-size: 2rem;
-    }
-    
-    .tags .tag {
-      font-size: 0.8rem !important;
-      padding: 0.3rem 0.8rem !important;
-    }
-  }
-}
-
-@media (max-width: 600px) {
-  .filetree-sidebar {
-    position: fixed;
-    left: -250px;
-    z-index: 1000;
-    transition: left 0.3s;
-    
-    &.open {
-      left: 0;
-    }
-  }
-  
-  body:not(:has(.dg-home)) {
-    .content {
-      width: 100%;
-      padding: 1.5rem;
-    }
+  body:has(.dg-home) {
+    .hero-title { font-size: 1.8rem; }
+    .ascii-skater { font-size: 1.5rem; }
   }
 }
