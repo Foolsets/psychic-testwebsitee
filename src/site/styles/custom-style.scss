@@ -773,6 +773,16 @@ body:has(.dg-home) .backlinks {
 }
 
 // ============================================
+// GLOBAL BACKGROUND + RESPONSIVE POLISH
+// ============================================
+
+@keyframes bg-grid-drift {
+  0% { background-position: 0 0, 0 0; }
+  100% { background-position: 0 20px, 20px 0; }
+}
+
+body.theme-dark {
+  background: linear-gradient(180deg, #0d1020 0%, #090d18 55%, #070a14 100%);
 // GLOBAL BACKGROUND + MOBILE READABILITY TUNING
 // ============================================
 
@@ -791,6 +801,12 @@ body.theme-dark::before {
   inset: 0;
   pointer-events: none;
   z-index: -1;
+  opacity: 0.2;
+  background-image:
+    linear-gradient(rgba(132, 154, 255, 0.11) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(132, 154, 255, 0.11) 1px, transparent 1px);
+  background-size: 44px 44px;
+  animation: bg-grid-drift 26s linear infinite;
   opacity: 0.45;
   background-image:
     linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
@@ -805,6 +821,7 @@ body.theme-dark::before {
   }
 }
 
+// Мобильный выезжающий сайдбар делаем непрозрачным и читаемым
 // Убираем "прозрачный" вид выезжающего мобильного сайдбара
 @media (max-width: 1000px) {
   .filetree-wrapper,
@@ -820,6 +837,28 @@ body.theme-dark::before {
   }
 }
 
+// Мобильная типографика и безопасные отступы
+@media (max-width: 800px) {
+  .content {
+    padding-left: 14px;
+    padding-right: 14px;
+    box-sizing: border-box;
+    font-size: 18px;
+    line-height: 1.62;
+  }
+
+  .sidebar {
+    padding-left: 10px;
+    padding-right: 10px;
+    box-sizing: border-box;
+  }
+
+  .dg-home-hero {
+    padding: 3.1rem 1rem;
+  }
+
+  .about-card .card-body {
+    padding: 1.15rem;
 // Мобильная типографика: чуть крупнее/читабельнее
 @media (max-width: 768px) {
   .content {
@@ -850,6 +889,7 @@ body.theme-dark::before {
   .sidebar-widget .widget-header {
     font-size: 0.86rem;
   }
+
 }
 
 // ============================================
@@ -866,6 +906,7 @@ body.theme-dark::before {
     transform: rotate(-2deg);
     text-transform: uppercase;
     color: #ff5fa2;
+    text-shadow: 0 0 8px rgba(255, 0, 110, 0.28);
     text-shadow: 0 0 8px rgba(255, 0, 110, 0.35);
 
     @supports (-webkit-background-clip: text) {
@@ -953,6 +994,18 @@ body.theme-dark::before {
   }
 }
 
+// NOTE pages — убираем тяжелую плашку, оставляем аккуратный прозрачный фон
+body:not(.dg-home) .content,
+body:has(.note-content) .content {
+  background: rgba(10, 12, 22, 0.58) !important;
+  box-shadow: 0 0 0 1px rgba(57, 255, 20, 0.08);
+}
+
+// Лёгкая интерактивность без агрессивного "прыжка"
+.sidebar-widget,
+.backlinks .backlink-card,
+.graph {
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
 // ============================================
 // NOTE PAGES: LIGHT TRANSPARENT LOWER AREA + EXTRA POLISH
 // ============================================
@@ -994,6 +1047,8 @@ body:has(.note-content) .content::after,
 .sidebar-widget:hover,
 .backlinks .backlink-card:hover,
 .graph:hover {
+  box-shadow: 0 0 0 1px rgba(57, 255, 20, 0.18), 0 6px 18px rgba(0, 0, 0, 0.24);
+}
   transform: translateY(-2px);
   box-shadow: 0 0 0 1px rgba(57, 255, 20, 0.2), 0 8px 22px rgba(0, 0, 0, 0.3);
 }
