@@ -844,3 +844,31 @@ body.theme-dark::before {
     font-size: 0.86rem;
   }
 }
+
+// ============================================
+// MOBILE NAVBAR LOGO FIX
+// ============================================
+
+@media (max-width: 800px) {
+  .navbar .navbar-inner > a h1 {
+    margin: 0 !important;
+    font-family: 'Permanent Marker', cursive;
+    font-size: clamp(1.7rem, 6.5vw, 2.2rem) !important;
+    line-height: 1;
+    letter-spacing: 0.5px;
+    transform: rotate(-2deg);
+    text-transform: uppercase;
+    background: linear-gradient(45deg, var(--neon-pink), #ff7aa2 55%, #ffb3c7);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.75);
+  }
+
+  .navbar .navbar-inner > a {
+    min-width: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
