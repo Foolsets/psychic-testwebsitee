@@ -17,6 +17,21 @@
   --text-muted: #888;
 }
 
+body {
+  // Немного поднимаем сайдбар, чтобы он не "прыгал" при первом рендере
+  --dg-sidebar-top: calc(var(--dg-navbar-height) + 8px);
+  --dg-sidebar-container-height: calc(100vh - var(--dg-sidebar-top) - 24px);
+}
+
+.sidebar {
+  height: calc(100vh - var(--dg-sidebar-top));
+}
+
+.sidebar-container {
+  height: 100%;
+  padding-bottom: 16px;
+}
+
 // ============================================
 // ANIMATIONS
 // ============================================
@@ -741,4 +756,138 @@ body:has(.dg-home) .backlinks {
       font-style: italic;
     }
   }
+}
+
+// ============================================
+// GLOBAL BACKGROUND + RESPONSIVE POLISH
+// ============================================
+
+@keyframes bg-grid-drift {
+  0% { background-position: 0 0, 0 0; }
+  100% { background-position: 0 20px, 20px 0; }
+}
+
+body.theme-dark {
+  background: linear-gradient(180deg, #0d1020 0%, #090d18 55%, #070a14 100%);
+  background-attachment: fixed;
+}
+
+body.theme-dark::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  opacity: 0.2;
+  background-image:
+    linear-gradient(rgba(132, 154, 255, 0.11) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(132, 154, 255, 0.11) 1px, transparent 1px);
+  background-size: 44px 44px;
+  animation: bg-grid-drift 26s linear infinite;
+}
+
+// Убираем заливку слева от filetree на десктопе
+@media (min-width: 1001px) {
+  .filetree-wrapper {
+    background: transparent !important;
+  }
+}
+
+// Мобильный выезжающий сайдбар делаем непрозрачным и читаемым
+@media (max-width: 1000px) {
+  .filetree-wrapper,
+  .filetree-sidebar {
+    background: #0b0d17 !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  .filetree-wrapper {
+    box-shadow: 16px 0 36px rgba(0, 0, 0, 0.45);
+    border-right: 1px solid rgba(57, 255, 20, 0.22);
+  }
+}
+
+// Мобильная типографика и безопасные отступы
+@media (max-width: 800px) {
+  .content {
+    padding-left: 14px;
+    padding-right: 14px;
+    box-sizing: border-box;
+    font-size: 18px;
+    line-height: 1.62;
+  }
+
+  .sidebar {
+    padding-left: 10px;
+    padding-right: 10px;
+    box-sizing: border-box;
+  }
+
+  .dg-home-hero {
+    padding: 3.1rem 1rem;
+  }
+
+  .about-card .card-body {
+    padding: 1.15rem;
+  }
+
+  .sidebar-widget .widget-header {
+    font-size: 0.86rem;
+  }
+
+  .navbar .navbar-inner > a h1 {
+    margin: 0 !important;
+    font-family: 'Permanent Marker', cursive;
+    font-size: clamp(1.7rem, 6.5vw, 2.2rem) !important;
+    line-height: 1;
+    letter-spacing: 0.5px;
+    transform: rotate(-2deg);
+    text-transform: uppercase;
+    color: #ff5fa2;
+    text-shadow: 0 0 8px rgba(255, 0, 110, 0.28);
+
+    @supports (-webkit-background-clip: text) {
+      background: linear-gradient(45deg, #ff2f8a 0%, #ff5fa2 45%, #ff9fc2 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: none;
+    }
+  }
+
+  .navbar .navbar-inner > a {
+    min-width: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .ai-promo .project-preview .preview-frame {
+    padding: 0.8rem;
+  }
+
+  .ai-promo .project-preview .preview-frame .ascii-art {
+    font-size: clamp(0.44rem, 1.9vw, 0.56rem);
+    line-height: 1.1;
+  }
+}
+
+// NOTE pages — убираем тяжелую плашку, оставляем аккуратный прозрачный фон
+body:not(.dg-home) .content,
+body:has(.note-content) .content {
+  background: rgba(10, 12, 22, 0.58) !important;
+  box-shadow: 0 0 0 1px rgba(57, 255, 20, 0.08);
+}
+
+// Лёгкая интерактивность без агрессивного "прыжка"
+.sidebar-widget,
+.backlinks .backlink-card,
+.graph {
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.sidebar-widget:hover,
+.backlinks .backlink-card:hover,
+.graph:hover {
+  box-shadow: 0 0 0 1px rgba(57, 255, 20, 0.18), 0 6px 18px rgba(0, 0, 0, 0.24);
 }
