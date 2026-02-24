@@ -8,14 +8,7 @@
   <div class="widget-content">
     <div class="project-preview">
       <div class="preview-frame">
-        <div class="ascii-art" id="sidebar-ascii">
-    ██████╗ ██████╗ ███╗   ███╗███████╗██╗   ██╗
-   ██╔════╝██╔═══██╗████╗ ████║██╔════╝██║   ██║
-   ██║     ██║   ██║██╔████╔██║█████╗  ██║   ██║
-   ██║     ██║   ██║██║╚██╔╝██║██╔══╝  ╚██╗ ██╔╝
-   ╚██████╗╚██████╔╝██║ ╚═╝ ██║██║      ╚████╔╝ 
-    ╚═════╝ ╚═════╝ ╚═╝     ╚═╝╚═╝       ╚═══╝  
-        </div>
+        <div class="ascii-art" id="sidebar-ascii" aria-live="polite"></div>
         <div class="scanline"></div>
       </div>
       <div class="project-info">
@@ -92,41 +85,46 @@ sidebarStats.forEach(stat => {
 // Меняющийся ASCII в сайдбаре
 const sidebarAscii = document.getElementById('sidebar-ascii');
 const asciiProjects = [
-`
-    ██████╗ ██████╗ ███╗   ███╗███████╗██╗   ██╗
-   ██╔════╝██╔═══██╗████╗ ████║██╔════╝██║   ██║
-   ██║     ██║   ██║██╔████╔██║█████╗  ██║   ██║
-   ██║     ██║   ██║██║╚██╔╝██║██╔══╝  ╚██╗ ██╔╝
-   ╚██████╗╚██████╔╝██║ ╚═╝ ██║██║      ╚████╔╝ 
-    ╚═════╝ ╚═════╝ ╚═╝     ╚═╝╚═╝       ╚═══╝  
-`,
-`
-   ██╗      ██████╗ ██████╗  █████╗ 
-   ██║     ██╔═══██╗██╔══██╗██╔══██╗
-   ██║     ██║   ██║██████╔╝███████║
-   ██║     ██║   ██║██╔══██╗██╔══██║
-   ███████╗╚██████╔╝██║  ██║██║  ██║
-   ╚══════╝ ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝
-`,
-`
-   ███████╗██████╗ ██╗  ██╗
-   ██╔════╝██╔══██╗╚██╗██╔╝
-   █████╗  ██████╔╝ ╚███╔╝ 
-   ██╔══╝  ██╔══██╗ ██╔██╗ 
-   ███████╗██║  ██║██╔╝ ██╗
-   ╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝
-`
+`██████╗ ██████╗ ███╗   ███╗███████╗██╗   ██╗
+██╔════╝██╔═══██╗████╗ ████║██╔════╝██║   ██║
+██║     ██║   ██║██╔████╔██║█████╗  ██║   ██║
+██║     ██║   ██║██║╚██╔╝██║██╔══╝  ╚██╗ ██╔╝
+╚██████╗╚██████╔╝██║ ╚═╝ ██║██║      ╚████╔╝
+ ╚═════╝ ╚═════╝ ╚═╝     ╚═╝╚═╝       ╚═══╝`,
+`██╗      ██████╗ ██████╗  █████╗
+██║     ██╔═══██╗██╔══██╗██╔══██╗
+██║     ██║   ██║██████╔╝███████║
+██║     ██║   ██║██╔══██╗██╔══██║
+███████╗╚██████╔╝██║  ██║██║  ██║
+╚══════╝ ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝`,
+`███████╗██████╗ ██╗  ██╗
+██╔════╝██╔══██╗╚██╗██╔╝
+█████╗  ██████╔╝ ╚███╔╝
+██╔══╝  ██╔══██╗ ██╔██╗
+███████╗██║  ██║██╔╝ ██╗
+╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝`
 ];
 
 let asciiIndex = 0;
-setInterval(() => {
-  if (sidebarAscii) {
+const renderSidebarAscii = (idx) => {
+  if (!sidebarAscii) return;
+  sidebarAscii.textContent = asciiProjects[idx];
+};
+
+if (sidebarAscii) {
+  renderSidebarAscii(asciiIndex);
+
+  if (document.fonts?.ready) {
+    document.fonts.ready.then(() => renderSidebarAscii(asciiIndex));
+  }
+
+  setInterval(() => {
     sidebarAscii.style.opacity = '0';
     setTimeout(() => {
-      sidebarAscii.textContent = asciiProjects[asciiIndex];
-      sidebarAscii.style.opacity = '1';
       asciiIndex = (asciiIndex + 1) % asciiProjects.length;
+      renderSidebarAscii(asciiIndex);
+      sidebarAscii.style.opacity = '1';
     }, 200);
-  }
-}, 4000);
+  }, 4000);
+}
 </script>
