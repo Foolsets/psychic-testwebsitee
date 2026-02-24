@@ -1,0 +1,256 @@
+// ============================================
+// SKATE OR DIE - 90s MTV GRUNGE THEME
+// ============================================
+
+// Импорт гранжевых шрифтов
+@import url('https://fonts.googleapis.com/css2?family=VT323&family=Permanent+Marker&family=Rubik+Mono+One&display=swap');
+
+// CSS Variables для переопределения
+:root {
+  // Цвета в стиле 90х MTV
+  --skate-neon-green: #39ff14;
+  --skate-neon-pink: #ff006e;
+  --skate-neon-purple: #8338ec;
+  --skate-neon-orange: #fb5607;
+  --skate-yellow: #ffbe0b;
+  --skate-black: #0a0a0a;
+  --skate-gray: #2a2a2a;
+  --skate-white: #f0f0f0;
+  
+  // Переопределение переменных Digital Garden
+  --background-primary: var(--skate-black);
+  --background-secondary: var(--skate-gray);
+  --text-normal: var(--skate-white);
+  --text-accent: var(--skate-neon-green);
+  --text-muted: #888;
+  --link-color: var(--skate-neon-pink);
+  --link-color-hover: var(--skate-neon-orange);
+  --h1-color: var(--skate-neon-green);
+  --h2-color: var(--skate-neon-pink);
+  --h3-color: var(--skate-neon-purple);
+  --h4-color: var(--skate-neon-orange);
+}
+
+// Гранжевая текстура фона
+body {
+  background-color: var(--skate-black);
+  background-image: 
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E"),
+    linear-gradient(135deg, rgba(57,255,20,0.03) 0%, rgba(131,56,236,0.03) 100%);
+  font-family: 'VT323', monospace;
+  font-size: 18px;
+}
+
+// Заголовки в стиле граффити
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Rubik Mono One', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: -2px;
+  position: relative;
+  display: inline-block;
+  
+  // Эффект "наклейки"
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: repeating-linear-gradient(
+      45deg,
+      var(--skate-neon-green),
+      var(--skate-neon-green) 10px,
+      var(--skate-neon-pink) 10px,
+      var(--skate-neon-pink) 20px
+    );
+    transform: skewX(-15deg);
+  }
+}
+
+h1 {
+  font-size: 3.5rem;
+  color: var(--skate-neon-green) !important;
+  text-shadow: 
+    3px 3px 0 var(--skate-neon-pink),
+    6px 6px 0 rgba(0,0,0,0.5);
+  transform: rotate(-1deg);
+}
+
+h2 {
+  font-size: 2.5rem;
+  color: var(--skate-neon-pink) !important;
+  text-shadow: 2px 2px 0 var(--skate-neon-purple);
+  transform: rotate(0.5deg);
+}
+
+// Ссылки как граффити-теги
+a {
+  color: var(--skate-neon-pink);
+  text-decoration: none;
+  font-weight: bold;
+  position: relative;
+  transition: all 0.2s;
+  
+  &:hover {
+    color: var(--skate-neon-orange);
+    text-shadow: 0 0 10px var(--skate-neon-orange);
+    transform: scale(1.05) rotate(-2deg);
+    display: inline-block;
+  }
+  
+  // Подчёркивание в виде скотча
+  &::before {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: -5%;
+    width: 110%;
+    height: 8px;
+    background: var(--skate-yellow);
+    opacity: 0.3;
+    transform: rotate(-1deg);
+    z-index: -1;
+  }
+}
+
+// Навигация (sidebar) как стена для граффити
+.filetree-sidebar {
+  background: var(--skate-gray);
+  border-right: 4px solid var(--skate-neon-green);
+  box-shadow: 5px 0 20px rgba(57,255,20,0.2);
+  
+  // Заголовок сайта
+  h1 {
+    font-family: 'Permanent Marker', cursive;
+    color: var(--skate-neon-green) !important;
+    transform: rotate(-3deg);
+    text-shadow: 2px 2px 0 #000;
+    
+    &::after {
+      display: none; // Убираем полоску для логотипа
+    }
+  }
+}
+
+// Поиск как стикер
+.search-button {
+  background: var(--skate-neon-purple) !important;
+  border: 3px solid var(--skate-black) !important;
+  border-radius: 0 !important;
+  font-family: 'Rubik Mono One', sans-serif;
+  text-transform: uppercase;
+  transform: rotate(-1deg);
+  box-shadow: 4px 4px 0 var(--skate-neon-pink);
+  
+  &:hover {
+    transform: rotate(0deg) translate(2px, 2px);
+    box-shadow: 2px 2px 0 var(--skate-neon-pink);
+  }
+}
+
+// Callouts как наклейки на скейтборде
+.callout {
+  background: var(--skate-gray);
+  border: 3px solid var(--skate-neon-green);
+  border-radius: 2px !important;
+  position: relative;
+  transform: rotate(-0.5deg);
+  box-shadow: 
+    5px 5px 0 rgba(0,0,0,0.5),
+    inset 0 0 20px rgba(57,255,20,0.1);
+  
+  // Уголок "скотча"
+  &::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: 20px;
+    width: 40px;
+    height: 20px;
+    background: rgba(255,255,255,0.3);
+    transform: rotate(-5deg);
+  }
+}
+
+// Код как пиксель-арт
+pre, code {
+  font-family: 'VT323', monospace;
+  background: #1a1a1a !important;
+  border: 2px solid var(--skate-neon-purple);
+  text-shadow: 0 0 5px var(--skate-neon-green);
+}
+
+// Теги как стикеры
+.tag {
+  background: var(--skate-neon-orange) !important;
+  color: var(--skate-black) !important;
+  font-family: 'Permanent Marker', cursive;
+  border-radius: 0 !important;
+  transform: rotate(-2deg);
+  padding: 2px 8px !important;
+  
+  &:hover {
+    transform: rotate(2deg) scale(1.1);
+  }
+}
+
+// Граф связей (graph) неоновый
+.graph-view {
+  background: var(--skate-black);
+  
+  .graph-node {
+    fill: var(--skate-neon-green);
+    filter: drop-shadow(0 0 5px var(--skate-neon-green));
+  }
+  
+  .graph-line {
+    stroke: var(--skate-neon-purple);
+    opacity: 0.6;
+  }
+}
+
+// Таблицы как зин (zine)
+table {
+  border: 3px solid var(--skate-neon-pink);
+  border-collapse: separate;
+  border-spacing: 0;
+  background: var(--skate-gray);
+  
+  th {
+    background: var(--skate-neon-pink);
+    color: var(--skate-black);
+    font-family: 'Rubik Mono One', sans-serif;
+    text-transform: uppercase;
+  }
+  
+  td {
+    border: 1px solid var(--skate-gray);
+  }
+  
+  tr:nth-child(even) {
+    background: rgba(57,255,20,0.05);
+  }
+}
+
+// Backlinks как "Related Stuff"
+.backlinks {
+  border-top: 4px dashed var(--skate-neon-green);
+  background: linear-gradient(180deg, transparent 0%, rgba(57,255,20,0.05) 100%);
+  
+  .backlink-title {
+    font-family: 'Permanent Marker', cursive;
+    color: var(--skate-neon-green) !important;
+    font-size: 1.5rem;
+  }
+}
+
+// Мобильная адаптация
+@media (max-width: 800px) {
+  h1 { font-size: 2.5rem; }
+  h2 { font-size: 1.8rem; }
+  
+  body {
+    font-size: 16px;
+  }
+}
