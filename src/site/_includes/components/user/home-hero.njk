@@ -1,18 +1,16 @@
 {% if dgHome %}
 <div class="dg-home">
-  <!-- ASCII Skater (как динозавр!) -->
-  <div class="ascii-skater" id="skater">
- O
-/|\
-/ \
+  <!-- ASCII Skater -->
+  <div class="ascii-skater-container">
+    <div class="ascii-skater" id="skater">🛹</div>
   </div>
   
   <section class="dg-home-hero">
     <!-- Плавающие элементы -->
-    <div class="floating-ascii">[====]</div>
-    <div class="floating-ascii">Ollie</div>
-    <div class="floating-ascii">Kickflip</div>
-    <div class="floating-ascii">[====]</div>
+    <div class="floating-item">[====]</div>
+    <div class="floating-item">Ollie</div>
+    <div class="floating-item">Kickflip</div>
+    <div class="floating-item">[====]</div>
     
     <div class="hero-icon">☠️</div>
     
@@ -56,32 +54,29 @@
 
 <script>
 // Terminal typing
-const text = `> initializing...
-> loading skate_mode...
-> ready.`;
-let i = 0;
+const lines = [
+  '> initializing skate_mode...',
+  '> loading neon shaders... [OK]',
+  '> system ready. welcome!'
+];
+let lineIdx = 0;
+let charIdx = 0;
 const term = document.getElementById('terminal-text');
-function type() {
-  if (i < text.length) {
-    term.innerHTML += text.charAt(i) === '\n' ? '<br>' : text.charAt(i);
-    i++;
-    setTimeout(type, 50);
+
+function typeLine() {
+  if (lineIdx < lines.length) {
+    if (charIdx < lines[lineIdx].length) {
+      term.innerHTML += lines[lineIdx][charIdx];
+      charIdx++;
+      setTimeout(typeLine, 30);
+    } else {
+      term.innerHTML += '<br>';
+      lineIdx++;
+      charIdx = 0;
+      setTimeout(typeLine, 300);
+    }
   }
 }
-setTimeout(type, 500);
-
-// Skater animation frames
-const skaterFrames = [
-  ' O\n/|\\\n/ >',
-  ' O\n/|\\\n< \\',
-  ' O\n/|\\\n/ \\',
-  ' O\n |\\\n/ \\',
-  ' O\n/|\n/ \\',
-];
-let frame = 0;
-setInterval(() => {
-  document.getElementById('skater').innerText = skaterFrames[frame];
-  frame = (frame + 1) % skaterFrames.length;
-}, 200);
+setTimeout(typeLine, 500);
 </script>
 {% endif %}
