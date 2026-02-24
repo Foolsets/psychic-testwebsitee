@@ -708,6 +708,20 @@ body {
     }
   }
 }
+body {
+  // Немного поднимаем сайдбар, чтобы он не "прыгал" при первом рендере
+  --dg-sidebar-top: calc(var(--dg-navbar-height) + 8px);
+  --dg-sidebar-container-height: calc(100vh - var(--dg-sidebar-top) - 24px);
+}
+
+.sidebar {
+  height: calc(100vh - var(--dg-sidebar-top));
+}
+
+.sidebar-container {
+  height: 100%;
+  padding-bottom: 16px;
+}
 
 // Backlinks
 body:has(.dg-home) .backlinks {
@@ -782,13 +796,6 @@ body.theme-dark::before {
     linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
   background-size: 52px 52px;
-}
-
-// Убираем заливку слева от filetree на десктопе
-@media (min-width: 1001px) {
-  .filetree-wrapper {
-    background: transparent !important;
-  }
 }
 
 // Убираем "прозрачный" вид выезжающего мобильного сайдбара
