@@ -9,13 +9,14 @@
     <div class="project-preview">
       <div class="preview-frame" style="min-height: 100px;">
         <pre class="ascii-art" id="sidebar-ascii" style="margin: 0; min-height: 80px;">
+        <div class="ascii-art" id="sidebar-ascii">
     ██████╗ ██████╗ ███╗   ███╗███████╗██╗   ██╗
    ██╔════╝██╔═══██╗████╗ ████║██╔════╝██║   ██║
    ██║     ██║   ██║██╔████╔██║█████╗  ██║   ██║
    ██║     ██║   ██║██║╚██╔╝██║██╔══╝  ╚██╗ ██╔╝
    ╚██████╗╚██████╔╝██║ ╚═╝ ██║██║      ╚████╔╝ 
     ╚═════╝ ╚═════╝ ╚═╝     ╚═╝╚═╝       ╚═══╝  
-        </pre>
+        </pre></div>
         <div class="scanline"></div>
       </div>
       <div class="project-info">
@@ -72,63 +73,61 @@
 
 <script>
 // Анимация счётчиков в сайдбаре
-(function() {
-  const sidebarStats = document.querySelectorAll('.stats-widget .number');
-  sidebarStats.forEach(stat => {
-    const target = parseInt(stat.getAttribute('data-count'));
-    let current = 0;
-    const increment = target / 30;
-    
-    const timer = setInterval(() => {
-      current += increment;
-      if (current >= target) {
-        stat.textContent = target + '+';
-        clearInterval(timer);
-      } else {
-        stat.textContent = Math.floor(current);
-      }
-    }, 50);
-  });
-
-  // Меняющийся ASCII в сайдбаре
-  const sidebarAscii = document.getElementById('sidebar-ascii');
-  const asciiProjects = [
-  `
-      ██████╗ ██████╗ ███╗   ███╗███████╗██╗   ██╗
-     ██╔════╝██╔═══██╗████╗ ████║██╔════╝██║   ██║
-     ██║     ██║   ██║██╔████╔██║█████╗  ██║   ██║
-     ██║     ██║   ██║██║╚██╔╝██║██╔══╝  ╚██╗ ██╔╝
-     ╚██████╗╚██████╔╝██║ ╚═╝ ██║██║      ╚████╔╝ 
-      ╚═════╝ ╚═════╝ ╚═╝     ╚═╝╚═╝       ╚═══╝  
-  `,
-  `
-     ██╗      ██████╗ ██████╗  █████╗ 
-     ██║     ██╔═══██╗██╔══██╗██╔══██╗
-     ██║     ██║   ██║██████╔╝███████║
-     ██║     ██║   ██║██╔══██╗██╔══██║
-     ███████╗╚██████╔╝██║  ██║██║  ██║
-     ╚══════╝ ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝
-  `,
-  `
-     ███████╗██████╗ ██╗  ██╗
-     ██╔════╝██╔══██╗╚██╗██╔╝
-     █████╗  ██████╔╝ ╚███╔╝ 
-     ██╔══╝  ██╔══██╗ ██╔██╗ 
-     ███████╗██║  ██║██╔╝ ██╗
-     ╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝
-  `
-  ];
-
-  let asciiIndex = 0;
-  setInterval(() => {
-    if (sidebarAscii) {
-      sidebarAscii.style.opacity = '0';
-      setTimeout(() => {
-        sidebarAscii.textContent = asciiProjects[asciiIndex];
-        sidebarAscii.style.opacity = '1';
-        asciiIndex = (asciiIndex + 1) % asciiProjects.length;
-      }, 200);
+const sidebarStats = document.querySelectorAll('.stats-widget .number');
+sidebarStats.forEach(stat => {
+  const target = parseInt(stat.getAttribute('data-count'));
+  let current = 0;
+  const increment = target / 30;
+  
+  const timer = setInterval(() => {
+    current += increment;
+    if (current >= target) {
+      stat.textContent = target + '+';
+      clearInterval(timer);
+    } else {
+      stat.textContent = Math.floor(current);
     }
-  }, 4000);
-})();
+  }, 50);
+});
+
+// Меняющийся ASCII в сайдбаре
+const sidebarAscii = document.getElementById('sidebar-ascii');
+const asciiProjects = [
+`
+    ██████╗ ██████╗ ███╗   ███╗███████╗██╗   ██╗
+   ██╔════╝██╔═══██╗████╗ ████║██╔════╝██║   ██║
+   ██║     ██║   ██║██╔████╔██║█████╗  ██║   ██║
+   ██║     ██║   ██║██║╚██╔╝██║██╔══╝  ╚██╗ ██╔╝
+   ╚██████╗╚██████╔╝██║ ╚═╝ ██║██║      ╚████╔╝ 
+    ╚═════╝ ╚═════╝ ╚═╝     ╚═╝╚═╝       ╚═══╝  
+`,
+`
+   ██╗      ██████╗ ██████╗  █████╗ 
+   ██║     ██╔═══██╗██╔══██╗██╔══██╗
+   ██║     ██║   ██║██████╔╝███████║
+   ██║     ██║   ██║██╔══██╗██╔══██║
+   ███████╗╚██████╔╝██║  ██║██║  ██║
+   ╚══════╝ ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝
+`,
+`
+   ███████╗██████╗ ██╗  ██╗
+   ██╔════╝██╔══██╗╚██╗██╔╝
+   █████╗  ██████╔╝ ╚███╔╝ 
+   ██╔══╝  ██╔══██╗ ██╔██╗ 
+   ███████╗██║  ██║██╔╝ ██╗
+   ╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝
+`
+];
+
+let asciiIndex = 0;
+setInterval(() => {
+  if (sidebarAscii) {
+    sidebarAscii.style.opacity = '0';
+    setTimeout(() => {
+      sidebarAscii.textContent = asciiProjects[asciiIndex];
+      sidebarAscii.style.opacity = '1';
+      asciiIndex = (asciiIndex + 1) % asciiProjects.length;
+    }, 200);
+  }
+}, 4000);
 </script>
