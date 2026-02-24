@@ -866,6 +866,21 @@ body.theme-dark::before {
     transform: rotate(-2deg);
     text-transform: uppercase;
     color: #ff5fa2;
+    text-shadow: 0 0 8px rgba(255, 0, 110, 0.35);
+
+    @supports (-webkit-background-clip: text) {
+      background: linear-gradient(45deg, #ff2f8a 0%, #ff5fa2 45%, #ff9fc2 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: none;
+    }
+
+    @supports (background-clip: text) {
+      background: linear-gradient(45deg, #ff2f8a 0%, #ff5fa2 45%, #ff9fc2 100%);
+      background-clip: text;
+      color: transparent;
+      text-shadow: none;
+    }
     text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.75);
 
     @supports (-webkit-background-clip: text) {
