@@ -1,0 +1,132 @@
+<!-- CUSTOM SIDEBAR WIDGET — AI Artist Promo -->
+<div class="sidebar-widget ai-promo">
+  <div class="widget-header">
+    <span class="blink">⚡</span>
+    <span class="title">Сейчас работаю над</span>
+  </div>
+  
+  <div class="widget-content">
+    <div class="project-preview">
+      <div class="preview-frame">
+        <div class="ascii-art" id="sidebar-ascii">
+    ██████╗ ██████╗ ███╗   ███╗███████╗██╗   ██╗
+   ██╔════╝██╔═══██╗████╗ ████║██╔════╝██║   ██║
+   ██║     ██║   ██║██╔████╔██║█████╗  ██║   ██║
+   ██║     ██║   ██║██║╚██╔╝██║██╔══╝  ╚██╗ ██╔╝
+   ╚██████╗╚██████╔╝██║ ╚═╝ ██║██║      ╚████╔╝ 
+    ╚═════╝ ╚═════╝ ╚═╝     ╚═╝╚═╝       ╚═══╝  
+        </div>
+        <div class="scanline"></div>
+      </div>
+      <div class="project-info">
+        <h4>ComfyUI Workflows</h4>
+        <p>Открытые ноды для генерации</p>
+        <a href="/notes/comfyui-guide" class="widget-link">
+          Скачать →
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Stats Widget -->
+<div class="sidebar-widget stats-widget">
+  <div class="widget-header">
+    <span class="icon">📊</span>
+    <span class="title">Статистика</span>
+  </div>
+  <div class="stats-grid">
+    <div class="stat-box">
+      <span class="number" data-count="50">0</span>
+      <span class="label">Моделей</span>
+    </div>
+    <div class="stat-box">
+      <span class="number" data-count="10">0</span>
+      <span class="label">Workflows</span>
+    </div>
+    <div class="stat-box">
+      <span class="number" data-count="1000">0</span>
+      <span class="label">Рендеров</span>
+    </div>
+  </div>
+</div>
+
+<!-- Newsletter / Connect -->
+<div class="sidebar-widget connect-widget">
+  <div class="widget-header">
+    <span class="icon">🚀</span>
+    <span class="title">Присоединяйся</span>
+  </div>
+  <div class="connect-links">
+    <a href="https://github.com/Foolsets" target="_blank" class="connect-btn github">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+        <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+      </svg>
+      GitHub
+    </a>
+    <a href="#" class="connect-btn telegram">
+      <span>✈️</span> Telegram
+    </a>
+  </div>
+</div>
+
+<script>
+// Анимация счётчиков в сайдбаре
+const sidebarStats = document.querySelectorAll('.stats-widget .number');
+sidebarStats.forEach(stat => {
+  const target = parseInt(stat.getAttribute('data-count'));
+  let current = 0;
+  const increment = target / 30;
+  
+  const timer = setInterval(() => {
+    current += increment;
+    if (current >= target) {
+      stat.textContent = target + '+';
+      clearInterval(timer);
+    } else {
+      stat.textContent = Math.floor(current);
+    }
+  }, 50);
+});
+
+// Меняющийся ASCII в сайдбаре
+const sidebarAscii = document.getElementById('sidebar-ascii');
+const asciiProjects = [
+`
+    ██████╗ ██████╗ ███╗   ███╗███████╗██╗   ██╗
+   ██╔════╝██╔═══██╗████╗ ████║██╔════╝██║   ██║
+   ██║     ██║   ██║██╔████╔██║█████╗  ██║   ██║
+   ██║     ██║   ██║██║╚██╔╝██║██╔══╝  ╚██╗ ██╔╝
+   ╚██████╗╚██████╔╝██║ ╚═╝ ██║██║      ╚████╔╝ 
+    ╚═════╝ ╚═════╝ ╚═╝     ╚═╝╚═╝       ╚═══╝  
+`,
+`
+   ██╗      ██████╗ ██████╗  █████╗ 
+   ██║     ██╔═══██╗██╔══██╗██╔══██╗
+   ██║     ██║   ██║██████╔╝███████║
+   ██║     ██║   ██║██╔══██╗██╔══██║
+   ███████╗╚██████╔╝██║  ██║██║  ██║
+   ╚══════╝ ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝
+`,
+`
+   ███████╗██████╗ ██╗  ██╗
+   ██╔════╝██╔══██╗╚██╗██╔╝
+   █████╗  ██████╔╝ ╚███╔╝ 
+   ██╔══╝  ██╔══██╗ ██╔██╗ 
+   ███████╗██║  ██║██╔╝ ██╗
+   ╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝
+`
+];
+
+let asciiIndex = 0;
+setInterval(() => {
+  if (sidebarAscii) {
+    sidebarAscii.style.opacity = '0';
+    setTimeout(() => {
+      sidebarAscii.textContent = asciiProjects[asciiIndex];
+      sidebarAscii.style.opacity = '1';
+      asciiIndex = (asciiIndex + 1) % asciiProjects.length;
+    }, 200);
+  }
+}, 4000);
+</script>
