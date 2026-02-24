@@ -954,6 +954,66 @@ body.theme-dark::before {
 }
 
 // ============================================
+// NOTE PAGES: LIGHT TRANSPARENT LOWER AREA + EXTRA POLISH
+// ============================================
+
+body:not(.dg-home) .content,
+body:has(.note-content) .content,
+.content:has(h1):not(:has(.dg-home)) {
+  background: linear-gradient(
+    180deg,
+    rgba(10, 12, 22, 0.82) 0%,
+    rgba(10, 12, 22, 0.72) 65%,
+    rgba(10, 12, 22, 0.34) 100%
+  ) !important;
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  box-shadow: 0 0 0 1px rgba(57, 255, 20, 0.1), 0 14px 40px rgba(0, 0, 0, 0.28);
+}
+
+body:not(.dg-home) .content::after,
+body:has(.note-content) .content::after,
+.content:has(h1):not(:has(.dg-home))::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 110px;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(10, 12, 22, 0) 0%, rgba(10, 12, 22, 0.52) 100%);
+}
+
+// Небольшой общий апгрейд интерактива
+.sidebar-widget,
+.backlinks .backlink-card,
+.graph {
+  transition: transform 0.22s ease, box-shadow 0.22s ease;
+}
+
+.sidebar-widget:hover,
+.backlinks .backlink-card:hover,
+.graph:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 0 1px rgba(57, 255, 20, 0.2), 0 8px 22px rgba(0, 0, 0, 0.3);
+}
+
+@media (max-width: 768px) {
+  body:not(.dg-home) .content,
+  body:has(.note-content) .content,
+  .content:has(h1):not(:has(.dg-home)) {
+    padding: 2rem 1rem;
+    border-left: 1px solid rgba(57, 255, 20, 0.16);
+    border-right: 1px solid rgba(57, 255, 20, 0.16);
+  }
+
+  body:not(.dg-home) .content::after,
+  body:has(.note-content) .content::after,
+  .content:has(h1):not(:has(.dg-home))::after {
+    height: 70px;
+  }
+}
+
 // NOTE PAGES POLISH (regular pages)
 // ============================================
 
