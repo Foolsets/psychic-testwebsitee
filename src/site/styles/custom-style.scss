@@ -902,3 +902,54 @@ body.theme-dark::before {
   }
 }
 
+// ============================================
+// SIMPLE ANIMATED GRID BG + MOBILE ANTI-SQUEEZE
+// ============================================
+
+@keyframes bg-grid-drift {
+  0% { background-position: 0 0, 0 0; }
+  100% { background-position: 0 22px, 22px 0; }
+}
+
+body.theme-dark {
+  background:
+    linear-gradient(180deg, #0d1020 0%, #0a0c18 100%);
+}
+
+body.theme-dark::before {
+  opacity: 0.24;
+  background-image:
+    linear-gradient(rgba(140, 160, 255, 0.12) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(140, 160, 255, 0.12) 1px, transparent 1px);
+  background-size: 44px 44px;
+  animation: bg-grid-drift 24s linear infinite;
+}
+
+@media (max-width: 768px) {
+  .content {
+    padding-left: 16px;
+    padding-right: 16px;
+    box-sizing: border-box;
+  }
+
+  .sidebar {
+    padding-left: 10px;
+    padding-right: 10px;
+    box-sizing: border-box;
+  }
+
+  .sidebar-widget {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .ai-promo .project-preview .preview-frame {
+    padding: 0.8rem;
+  }
+
+  .ai-promo .project-preview .preview-frame .ascii-art {
+    font-size: clamp(0.44rem, 1.9vw, 0.56rem);
+    line-height: 1.1;
+  }
+}
+
