@@ -1,0 +1,89 @@
+{% if dgHome %}
+<div class="dg-home">
+  <section class="dg-home-hero">
+    <div class="hero-icon">☠️</div>
+    <h1 class="hero-title">
+      <span>W</span><span>E</span><span>L</span><span>C</span><span>O</span><span>M</span><span>E</span>
+      <br>
+      <span>T</span><span>O</span>
+      <br>
+      <span style="color: var(--neon-pink)">D</span><span style="color: var(--neon-pink)">I</span><span style="color: var(--neon-pink)">G</span><span style="color: var(--neon-pink)">I</span><span style="color: var(--neon-pink)">T</span><span style="color: var(--neon-pink)">A</span><span style="color: var(--neon-pink)">L</span>
+      <span style="color: var(--neon-cyan)">G</span><span style="color: var(--neon-cyan)">A</span><span style="color: var(--neon-cyan)">R</span><span style="color: var(--neon-cyan)">D</span><span style="color: var(--neon-cyan)">E</span><span style="color: var(--neon-cyan)">N</span>
+    </h1>
+    
+    <div class="terminal-window">
+      <div class="terminal-header">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <span style="margin-left: auto; font-family: VT323; color: var(--neon-green);">user@skate-os:~</span>
+      </div>
+      <div class="terminal-body">
+        <div class="typing-text" id="terminal-text"></div>
+      </div>
+    </div>
+    
+    <div class="hero-links">
+      <a href="/ai-articles">AI Articles</a>
+      <a href="/about">About</a>
+      <a href="/graph">Graph View</a>
+      <a href="https://github.com/yourusername" target="_blank">GitHub</a>
+    </div>
+  </section>
+  
+  <section class="articles-grid" id="latest-posts">
+    <!-- Posts will be injected here by JavaScript or Eleventy -->
+    <div class="article-card">
+      <h3 class="article-title">Getting Started with AI</h3>
+      <p class="article-excerpt">Exploring the fundamentals of artificial intelligence and machine learning...</p>
+      <span class="article-date">2024-01-15</span>
+    </div>
+    <div class="article-card">
+      <h3 class="article-title">Neural Networks Explained</h3>
+      <p class="article-excerpt">Deep dive into how neural networks actually work under the hood...</p>
+      <span class="article-date">2024-01-10</span>
+    </div>
+    <div class="article-card">
+      <h3 class="article-title">Future of LLMs</h3>
+      <p class="article-excerpt">What comes next after GPT-4? Predictions and analysis...</p>
+      <span class="article-date">2024-01-05</span>
+    </div>
+  </section>
+</div>
+
+<script>
+// Terminal typing effect
+const terminalText = `
+> initializing skate_mode.exe...
+> loading grunge textures... [OK]
+> mounting neon shaders... [OK]
+> System ready. Welcome to my Digital Garden.
+> 
+> Type 'help' for available commands
+> Last login: ${new Date().toLocaleDateString()}
+`;
+
+let index = 0;
+const terminalElement = document.getElementById('terminal-text');
+
+function typeWriter() {
+  if (index < terminalText.length) {
+    terminalElement.innerHTML += terminalText.charAt(index);
+    index++;
+    setTimeout(typeWriter, 50);
+  }
+}
+
+// Start typing after page load
+setTimeout(typeWriter, 1000);
+
+// Add random glitch effect to title
+setInterval(() => {
+  const title = document.querySelector('.hero-title');
+  title.style.transform = `translate(${Math.random() * 4 - 2}px, ${Math.random() * 4 - 2}px)`;
+  setTimeout(() => {
+    title.style.transform = 'translate(0, 0)';
+  }, 100);
+}, 5000);
+</script>
+{% endif %}
