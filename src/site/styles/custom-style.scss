@@ -798,6 +798,13 @@ body.theme-dark::before {
   background-size: 52px 52px;
 }
 
+// Убираем заливку слева от filetree на десктопе
+@media (min-width: 1001px) {
+  .filetree-wrapper {
+    background: transparent !important;
+  }
+}
+
 // Убираем "прозрачный" вид выезжающего мобильного сайдбара
 @media (max-width: 1000px) {
   .filetree-wrapper,
@@ -858,6 +865,14 @@ body.theme-dark::before {
     letter-spacing: 0.5px;
     transform: rotate(-2deg);
     text-transform: uppercase;
+    color: #ff5fa2;
+    text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.75);
+
+    @supports (-webkit-background-clip: text) {
+      background: linear-gradient(45deg, var(--neon-pink), #ff7aa2 55%, #ffb3c7);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
     background: linear-gradient(45deg, var(--neon-pink), #ff7aa2 55%, #ffb3c7);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
