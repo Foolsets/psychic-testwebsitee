@@ -953,3 +953,40 @@ body.theme-dark::before {
   }
 }
 
+// ============================================
+// NOTE PAGES POLISH (regular pages)
+// ============================================
+
+// На обычных страницах убираем серую "подложку" снизу/по фону
+body:not(:has(.dg-home)) .content.cm-s-obsidian {
+  background: transparent !important;
+}
+
+// Делаем низ страницы более "прозрачным" и плавным
+body:not(:has(.dg-home)) {
+  &::after {
+    content: "";
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 18vh;
+    pointer-events: none;
+    background: linear-gradient(180deg, transparent 0%, rgba(8, 10, 18, 0.35) 70%, rgba(8, 10, 18, 0.55) 100%);
+    z-index: 0;
+  }
+
+  .content,
+  .sidebar,
+  .filetree-wrapper {
+    position: relative;
+    z-index: 1;
+  }
+}
+
+// Маленький дизайнерский бонус: аккуратный glow у заголовка note-страниц
+body:not(:has(.dg-home)) .content > header h1 {
+  text-shadow: 0 0 14px rgba(255, 47, 138, 0.2);
+  letter-spacing: 0.5px;
+}
+
