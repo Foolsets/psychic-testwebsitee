@@ -708,6 +708,20 @@ body {
     }
   }
 }
+body {
+  // Немного поднимаем сайдбар, чтобы он не "прыгал" при первом рендере
+  --dg-sidebar-top: calc(var(--dg-navbar-height) + 8px);
+  --dg-sidebar-container-height: calc(100vh - var(--dg-sidebar-top) - 24px);
+}
+
+.sidebar {
+  height: calc(100vh - var(--dg-sidebar-top));
+}
+
+.sidebar-container {
+  height: 100%;
+  padding-bottom: 16px;
+}
 
 // Backlinks
 body:has(.dg-home) .backlinks {
@@ -769,6 +783,15 @@ body:has(.dg-home) .backlinks {
 
 body.theme-dark {
   background: linear-gradient(180deg, #0d1020 0%, #090d18 55%, #070a14 100%);
+// GLOBAL BACKGROUND + MOBILE READABILITY TUNING
+// ============================================
+
+body.theme-dark {
+  background:
+    radial-gradient(circle at 15% 20%, rgba(131, 56, 236, 0.16) 0%, transparent 35%),
+    radial-gradient(circle at 85% 15%, rgba(255, 0, 110, 0.12) 0%, transparent 32%),
+    radial-gradient(circle at 50% 85%, rgba(0, 245, 255, 0.08) 0%, transparent 38%),
+    linear-gradient(180deg, #121425 0%, #0a0b14 55%, #07080f 100%);
   background-attachment: fixed;
 }
 
@@ -784,6 +807,11 @@ body.theme-dark::before {
     linear-gradient(90deg, rgba(132, 154, 255, 0.11) 1px, transparent 1px);
   background-size: 44px 44px;
   animation: bg-grid-drift 26s linear infinite;
+  opacity: 0.45;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+  background-size: 52px 52px;
 }
 
 // Убираем заливку слева от filetree на десктопе
@@ -794,6 +822,7 @@ body.theme-dark::before {
 }
 
 // Мобильный выезжающий сайдбар делаем непрозрачным и читаемым
+// Убираем "прозрачный" вид выезжающего мобильного сайдбара
 @media (max-width: 1000px) {
   .filetree-wrapper,
   .filetree-sidebar {
@@ -830,12 +859,44 @@ body.theme-dark::before {
 
   .about-card .card-body {
     padding: 1.15rem;
+// Мобильная типографика: чуть крупнее/читабельнее
+@media (max-width: 768px) {
+  .content {
+    font-size: 19px;
+    line-height: 1.65;
+  }
+
+  .dg-home-hero {
+    padding: 3.25rem 1.1rem;
+  }
+
+  .about-card .card-body {
+    padding: 1.2rem;
+  }
+
+  .about-card .bio-text,
+  .about-card p,
+  .project-card .excerpt {
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+
+  .quick-info .info-line {
+    font-size: 0.95rem;
+    line-height: 1.6;
   }
 
   .sidebar-widget .widget-header {
     font-size: 0.86rem;
   }
 
+}
+
+// ============================================
+// MOBILE NAVBAR LOGO FIX
+// ============================================
+
+@media (max-width: 800px) {
   .navbar .navbar-inner > a h1 {
     margin: 0 !important;
     font-family: 'Permanent Marker', cursive;
@@ -846,6 +907,7 @@ body.theme-dark::before {
     text-transform: uppercase;
     color: #ff5fa2;
     text-shadow: 0 0 8px rgba(255, 0, 110, 0.28);
+    text-shadow: 0 0 8px rgba(255, 0, 110, 0.35);
 
     @supports (-webkit-background-clip: text) {
       background: linear-gradient(45deg, #ff2f8a 0%, #ff5fa2 45%, #ff9fc2 100%);
@@ -853,6 +915,24 @@ body.theme-dark::before {
       -webkit-text-fill-color: transparent;
       text-shadow: none;
     }
+
+    @supports (background-clip: text) {
+      background: linear-gradient(45deg, #ff2f8a 0%, #ff5fa2 45%, #ff9fc2 100%);
+      background-clip: text;
+      color: transparent;
+      text-shadow: none;
+    }
+    text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.75);
+
+    @supports (-webkit-background-clip: text) {
+      background: linear-gradient(45deg, var(--neon-pink), #ff7aa2 55%, #ffb3c7);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    background: linear-gradient(45deg, var(--neon-pink), #ff7aa2 55%, #ffb3c7);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.75);
   }
 
   .navbar .navbar-inner > a {
@@ -860,6 +940,48 @@ body.theme-dark::before {
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+}
+
+// ============================================
+// SIMPLE ANIMATED GRID BG + MOBILE ANTI-SQUEEZE
+// ============================================
+
+@keyframes bg-grid-drift {
+  0% { background-position: 0 0, 0 0; }
+  100% { background-position: 0 22px, 22px 0; }
+}
+
+body.theme-dark {
+  background:
+    linear-gradient(180deg, #0d1020 0%, #0a0c18 100%);
+}
+
+body.theme-dark::before {
+  opacity: 0.24;
+  background-image:
+    linear-gradient(rgba(140, 160, 255, 0.12) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(140, 160, 255, 0.12) 1px, transparent 1px);
+  background-size: 44px 44px;
+  animation: bg-grid-drift 24s linear infinite;
+}
+
+@media (max-width: 768px) {
+  .content {
+    padding-left: 16px;
+    padding-right: 16px;
+    box-sizing: border-box;
+  }
+
+  .sidebar {
+    padding-left: 10px;
+    padding-right: 10px;
+    box-sizing: border-box;
+  }
+
+  .sidebar-widget {
+    margin-left: 0;
+    margin-right: 0;
   }
 
   .ai-promo .project-preview .preview-frame {
@@ -884,6 +1006,42 @@ body:has(.note-content) .content {
 .backlinks .backlink-card,
 .graph {
   transition: box-shadow 0.2s ease, border-color 0.2s ease;
+// ============================================
+// NOTE PAGES: LIGHT TRANSPARENT LOWER AREA + EXTRA POLISH
+// ============================================
+
+body:not(.dg-home) .content,
+body:has(.note-content) .content,
+.content:has(h1):not(:has(.dg-home)) {
+  background: linear-gradient(
+    180deg,
+    rgba(10, 12, 22, 0.82) 0%,
+    rgba(10, 12, 22, 0.72) 65%,
+    rgba(10, 12, 22, 0.34) 100%
+  ) !important;
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  box-shadow: 0 0 0 1px rgba(57, 255, 20, 0.1), 0 14px 40px rgba(0, 0, 0, 0.28);
+}
+
+body:not(.dg-home) .content::after,
+body:has(.note-content) .content::after,
+.content:has(h1):not(:has(.dg-home))::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 110px;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(10, 12, 22, 0) 0%, rgba(10, 12, 22, 0.52) 100%);
+}
+
+// Небольшой общий апгрейд интерактива
+.sidebar-widget,
+.backlinks .backlink-card,
+.graph {
+  transition: transform 0.22s ease, box-shadow 0.22s ease;
 }
 
 .sidebar-widget:hover,
@@ -891,3 +1049,59 @@ body:has(.note-content) .content {
 .graph:hover {
   box-shadow: 0 0 0 1px rgba(57, 255, 20, 0.18), 0 6px 18px rgba(0, 0, 0, 0.24);
 }
+  transform: translateY(-2px);
+  box-shadow: 0 0 0 1px rgba(57, 255, 20, 0.2), 0 8px 22px rgba(0, 0, 0, 0.3);
+}
+
+@media (max-width: 768px) {
+  body:not(.dg-home) .content,
+  body:has(.note-content) .content,
+  .content:has(h1):not(:has(.dg-home)) {
+    padding: 2rem 1rem;
+    border-left: 1px solid rgba(57, 255, 20, 0.16);
+    border-right: 1px solid rgba(57, 255, 20, 0.16);
+  }
+
+  body:not(.dg-home) .content::after,
+  body:has(.note-content) .content::after,
+  .content:has(h1):not(:has(.dg-home))::after {
+    height: 70px;
+  }
+}
+
+// NOTE PAGES POLISH (regular pages)
+// ============================================
+
+// На обычных страницах убираем серую "подложку" снизу/по фону
+body:not(:has(.dg-home)) .content.cm-s-obsidian {
+  background: transparent !important;
+}
+
+// Делаем низ страницы более "прозрачным" и плавным
+body:not(:has(.dg-home)) {
+  &::after {
+    content: "";
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 18vh;
+    pointer-events: none;
+    background: linear-gradient(180deg, transparent 0%, rgba(8, 10, 18, 0.35) 70%, rgba(8, 10, 18, 0.55) 100%);
+    z-index: 0;
+  }
+
+  .content,
+  .sidebar,
+  .filetree-wrapper {
+    position: relative;
+    z-index: 1;
+  }
+}
+
+// Маленький дизайнерский бонус: аккуратный glow у заголовка note-страниц
+body:not(:has(.dg-home)) .content > header h1 {
+  text-shadow: 0 0 14px rgba(255, 47, 138, 0.2);
+  letter-spacing: 0.5px;
+}
+
