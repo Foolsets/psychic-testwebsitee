@@ -1,14 +1,21 @@
 {% if dgHome %}
 <div class="dg-home">
+  <!-- Particle Canvas -->
+  <canvas id="particle-canvas"></canvas>
+  
   <section class="dg-home-hero">
-    <div class="hero-icon">☠️</div>
+    <!-- Floating elements -->
+    <div class="floating-skate">[====]</div>
+    <div class="floating-skate">Ollie</div>
+    <div class="floating-skate">Kickflip</div>
+    <div class="floating-skate">[====]</div>
+    
+    <div class="hero-icon" onclick="this.style.transform='scale(2) rotate(720deg)'">☠️</div>
+    
     <h1 class="hero-title">
-      <span>W</span><span>E</span><span>L</span><span>C</span><span>O</span><span>M</span><span>E</span>
-      <br>
-      <span>T</span><span>O</span>
-      <br>
-      <span style="color: var(--neon-pink)">D</span><span style="color: var(--neon-pink)">I</span><span style="color: var(--neon-pink)">G</span><span style="color: var(--neon-pink)">I</span><span style="color: var(--neon-pink)">T</span><span style="color: var(--neon-pink)">A</span><span style="color: var(--neon-pink)">L</span>
-      <span style="color: var(--neon-cyan)">G</span><span style="color: var(--neon-cyan)">A</span><span style="color: var(--neon-cyan)">R</span><span style="color: var(--neon-cyan)">D</span><span style="color: var(--neon-cyan)">E</span><span style="color: var(--neon-cyan)">N</span>
+      <span class="line1">WELCOME TO</span>
+      <span class="line2">THE</span>
+      <span class="line3">DIGITAL GARDEN</span>
     </h1>
     
     <div class="terminal-window">
@@ -16,7 +23,7 @@
         <div class="dot"></div>
         <div class="dot"></div>
         <div class="dot"></div>
-        <span style="margin-left: auto; font-family: VT323; color: var(--neon-green);">user@skate-os:~</span>
+        <span class="terminal-title">root@skate-os: ~/garden</span>
       </div>
       <div class="terminal-body">
         <div class="typing-text" id="terminal-text"></div>
@@ -24,66 +31,209 @@
     </div>
     
     <div class="hero-links">
-      <a href="/ai-articles">AI Articles</a>
+      <a href="/ai-website">AI Articles</a>
       <a href="/about">About</a>
       <a href="/graph">Graph View</a>
       <a href="https://github.com/yourusername" target="_blank">GitHub</a>
     </div>
+    
+    <div class="scroll-indicator">Scroll down</div>
   </section>
   
-  <section class="articles-grid" id="latest-posts">
-    <!-- Posts will be injected here by JavaScript or Eleventy -->
-    <div class="article-card">
-      <h3 class="article-title">Getting Started with AI</h3>
-      <p class="article-excerpt">Exploring the fundamentals of artificial intelligence and machine learning...</p>
-      <span class="article-date">2024-01-15</span>
-    </div>
-    <div class="article-card">
-      <h3 class="article-title">Neural Networks Explained</h3>
-      <p class="article-excerpt">Deep dive into how neural networks actually work under the hood...</p>
-      <span class="article-date">2024-01-10</span>
-    </div>
-    <div class="article-card">
-      <h3 class="article-title">Future of LLMs</h3>
-      <p class="article-excerpt">What comes next after GPT-4? Predictions and analysis...</p>
-      <span class="article-date">2024-01-05</span>
+  <section class="articles-section">
+    <h2 class="section-title">Latest Posts</h2>
+    <div class="articles-grid" id="latest-posts">
+      <article class="article-card" onclick="window.location.href='/ai-website/animate-diff'">
+        <h3 class="article-title">Animate Diff</h3>
+        <p class="article-excerpt">Exploring motion and animation in AI-generated content...</p>
+        <div class="article-meta">
+          <span class="article-date">24/Feb/2026</span>
+          <span class="article-tag">#ai</span>
+          <span class="article-tag">#animation</span>
+        </div>
+      </article>
+      
+      <article class="article-card">
+        <h3 class="article-title">Neural Networks</h3>
+        <p class="article-excerpt">Deep dive into the architecture of modern neural networks...</p>
+        <div class="article-meta">
+          <span class="article-date">20/Feb/2026</span>
+          <span class="article-tag">#ai</span>
+          <span class="article-tag">#deep-learning</span>
+        </div>
+      </article>
+      
+      <article class="article-card">
+        <h3 class="article-title">Webpunk Aesthetics</h3>
+        <p class="article-excerpt">The intersection of cyberpunk and web design in 2024...</p>
+        <div class="article-meta">
+          <span class="article-date">15/Feb/2026</span>
+          <span class="article-tag">#design</span>
+          <span class="article-tag">#webpunk</span>
+        </div>
+      </article>
     </div>
   </section>
 </div>
 
 <script>
 // Terminal typing effect
-const terminalText = `
-> initializing skate_mode.exe...
-> loading grunge textures... [OK]
-> mounting neon shaders... [OK]
-> System ready. Welcome to my Digital Garden.
-> 
-> Type 'help' for available commands
-> Last login: ${new Date().toLocaleDateString()}
-`;
+const terminalLines = [
+  '> initializing skate_mode.exe...',
+  '> loading grunge textures... [OK]',
+  '> mounting neon shaders... [OK]',
+  '> establishing matrix connection... [OK]',
+  '> System ready. Welcome to my Digital Garden.',
+  '> ',
+  '> Available commands:',
+  '>   - read_ai_articles()  → Explore AI content',
+  '>   - view_graph()        → See knowledge graph',
+  '>   - contact()           → Get in touch',
+  '> ',
+  '> Last login: ' + new Date().toLocaleString()
+];
 
-let index = 0;
+let lineIndex = 0;
+let charIndex = 0;
 const terminalElement = document.getElementById('terminal-text');
 
-function typeWriter() {
-  if (index < terminalText.length) {
-    terminalElement.innerHTML += terminalText.charAt(index);
-    index++;
-    setTimeout(typeWriter, 50);
+function typeTerminal() {
+  if (lineIndex < terminalLines.length) {
+    const currentLine = terminalLines[lineIndex];
+    
+    if (charIndex < currentLine.length) {
+      terminalElement.innerHTML += currentLine.charAt(charIndex);
+      charIndex++;
+      setTimeout(typeTerminal, 30);
+    } else {
+      terminalElement.innerHTML += '<br>';
+      lineIndex++;
+      charIndex = 0;
+      setTimeout(typeTerminal, 200);
+    }
   }
 }
 
-// Start typing after page load
-setTimeout(typeWriter, 1000);
+// Particle system
+const canvas = document.getElementById('particle-canvas');
+const ctx = canvas.getContext('2d');
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
 
-// Add random glitch effect to title
+const particles = [];
+const particleCount = 50;
+const colors = ['#39ff14', '#ff006e', '#8338ec', '#00f5ff', '#fb5607'];
+
+class Particle {
+  constructor() {
+    this.x = Math.random() * canvas.width;
+    this.y = Math.random() * canvas.height;
+    this.size = Math.random() * 3 + 1;
+    this.speedX = Math.random() * 2 - 1;
+    this.speedY = Math.random() * 2 - 1;
+    this.color = colors[Math.floor(Math.random() * colors.length)];
+    this.life = 100;
+  }
+  
+  update() {
+    this.x += this.speedX;
+    this.y += this.speedY;
+    this.life -= 0.5;
+    
+    if (this.x > canvas.width) this.x = 0;
+    if (this.x < 0) this.x = canvas.width;
+    if (this.y > canvas.height) this.y = 0;
+    if (this.y < 0) this.y = canvas.height;
+    
+    if (this.life <= 0) {
+      this.x = Math.random() * canvas.width;
+      this.y = Math.random() * canvas.height;
+      this.life = 100;
+    }
+  }
+  
+  draw() {
+    ctx.fillStyle = this.color;
+    ctx.globalAlpha = this.life / 100 * 0.5;
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+    ctx.fill();
+  }
+}
+
+// Create particles
+for (let i = 0; i < particleCount; i++) {
+  particles.push(new Particle());
+}
+
+// Mouse trail
+let mouse = { x: null, y: null };
+window.addEventListener('mousemove', (e) => {
+  mouse.x = e.x;
+  mouse.y = e.y;
+  
+  // Create trail particles
+  for (let i = 0; i < 3; i++) {
+    const p = new Particle();
+    p.x = mouse.x + Math.random() * 20 - 10;
+    p.y = mouse.y + Math.random() * 20 - 10;
+    p.size = Math.random() * 4 + 2;
+    p.life = 50;
+    particles.push(p);
+  }
+});
+
+function animateParticles() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  
+  particles.forEach((p, index) => {
+    p.update();
+    p.draw();
+    
+    if (p.life <= 0 && index >= particleCount) {
+      particles.splice(index, 1);
+    }
+  });
+  
+  // Connect nearby particles
+  for (let i = 0; i < particles.length; i++) {
+    for (let j = i + 1; j < particles.length; j++) {
+      const dx = particles[i].x - particles[j].x;
+      const dy = particles[i].y - particles[j].y;
+      const distance = Math.sqrt(dx * dx + dy * dy);
+      
+      if (distance < 100) {
+        ctx.beginPath();
+        ctx.strokeStyle = particles[i].color;
+        ctx.globalAlpha = (1 - distance / 100) * 0.2;
+        ctx.lineWidth = 1;
+        ctx.moveTo(particles[i].x, particles[i].y);
+        ctx.lineTo(particles[j].x, particles[j].y);
+        ctx.stroke();
+      }
+    }
+  }
+  
+  requestAnimationFrame(animateParticles);
+}
+
+// Start animations
+setTimeout(typeTerminal, 500);
+animateParticles();
+
+// Resize handler
+window.addEventListener('resize', () => {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+});
+
+// Random glitch effect on title
 setInterval(() => {
   const title = document.querySelector('.hero-title');
-  title.style.transform = `translate(${Math.random() * 4 - 2}px, ${Math.random() * 4 - 2}px)`;
+  title.style.filter = `hue-rotate(${Math.random() * 360}deg)`;
   setTimeout(() => {
-    title.style.transform = 'translate(0, 0)';
+    title.style.filter = 'hue-rotate(0deg)';
   }, 100);
-}, 5000);
+}, 8000);
 </script>
 {% endif %}
