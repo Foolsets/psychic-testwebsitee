@@ -1,0 +1,153 @@
+<script>
+// ==========================================
+// NEURAL ARTIST HOMEPAGE ANIMATIONS
+// ==========================================
+
+document.addEventListener('DOMContentLoaded', () => {
+  
+  // 1. ASCII Art генератор (анимированный)
+  const asciiFrames = [
+    `
+    ███╗   ██╗███████╗██╗   ██╗██████╗  █████╗ ██╗     
+    ████╗  ██║██╔════╝██║   ██║██╔══██╗██╔══██╗██║     
+    ██╔██╗ ██║█████╗  ██║   ██║██████╔╝███████║██║     
+    ██║╚██╗██║██╔══╝  ██║   ██║██╔══██╗██╔══██║██║     
+    ██║ ╚████║███████╗╚██████╔╝██║  ██║██║  ██║███████╗
+    ╚═╝  ╚═══╝╚══════╝ ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝
+    `,
+    `
+    ░█▀█░█▀▀░█░█░█▀█░█░░░█▀▄░░░█▀█░█▀█░█▀▄░▀█▀░█▀▀
+    ░█▀█░█░░░█▀█░█▀█░█░░░█▀▄░░░█▀█░█▀█░█▀▄░░█░░█▀▀
+    ░▀░▀░▀▀▀░▀░▀░▀░▀░▀▀▀░▀▀░░░░▀░▀░▀░▀░▀░▀░▀▀▀░▀▀▀
+    `,
+    `
+    ╔╗╔┌─┐┬ ┬┌─┐┬  ┌─┐┌┬┐┌─┐
+    ║║║├┤ │ ││ ││  ├─┤ │ ├┤ 
+    ╝╚╝└─┘└─┘└─┘┴─┘┴ ┴ ┴ └─┘
+    `
+  ];
+  
+  let frameIndex = 0;
+  const asciiEl = document.getElementById('ascii-logo');
+  
+  setInterval(() => {
+    if (asciiEl) {
+      asciiEl.style.opacity = '0';
+      setTimeout(() => {
+        asciiEl.textContent = asciiFrames[frameIndex];
+        asciiEl.style.opacity = '1';
+        frameIndex = (frameIndex + 1) % asciiFrames.length;
+      }, 100);
+    }
+  }, 3000);
+
+  // 2. Typewriter эффект для подзаголовка
+  const phrases = [
+    'AI Artist & Creative Technologist',
+    'Open Source Advocate',
+    'ComfyUI Workflow Builder',
+    'Generative Art Explorer'
+  ];
+  let phraseIndex = 0;
+  let charIndex = 0;
+  let isDeleting = false;
+  const typewriterEl = document.getElementById('typewriter');
+  
+  function typeWriter() {
+    const current = phrases[phraseIndex];
+    
+    if (isDeleting) {
+      typewriterEl.textContent = current.substring(0, charIndex - 1);
+      charIndex--;
+    } else {
+      typewriterEl.textContent = current.substring(0, charIndex + 1);
+      charIndex++;
+    }
+    
+    let typeSpeed = isDeleting ? 50 : 100;
+    
+    if (!isDeleting && charIndex === current.length) {
+      typeSpeed = 2000;
+      isDeleting = true;
+    } else if (isDeleting && charIndex === 0) {
+      isDeleting = false;
+      phraseIndex = (phraseIndex + 1) % phrases.length;
+      typeSpeed = 500;
+    }
+    
+    setTimeout(typeWriter, typeSpeed);
+  }
+  
+  if (typewriterEl) typeWriter();
+
+  // 3. Анимированный счётчик статистики
+  const counters = document.querySelectorAll('.stat-number');
+  
+  const animateCounter = (counter) => {
+    const target = +counter.getAttribute('data-target');
+    const increment = target / 50;
+    let current = 0;
+    
+    const updateCounter = () => {
+      if (current < target) {
+        current += increment;
+        counter.textContent = Math.ceil(current);
+        setTimeout(updateCounter, 30);
+      } else {
+        counter.textContent = target + '+';
+      }
+    };
+    
+    updateCounter();
+  };
+  
+  // Запускаем когда элемент в viewport
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        animateCounter(entry.target);
+        observer.unobserve(entry.target);
+      }
+    });
+  });
+  
+  counters.forEach(counter => observer.observe(counter));
+
+  // 4. Интерактивные частицы на фоне
+  const particlesContainer = document.getElementById('particles');
+  if (particlesContainer) {
+    for (let i = 0; i < 30; i++) {
+      const particle = document.createElement('div');
+      particle.className = 'particle';
+      particle.style.left = Math.random() * 100 + '%';
+      particle.style.animationDelay = Math.random() * 5 + 's';
+      particle.style.animationDuration = (Math.random() * 3 + 2) + 's';
+      particlesContainer.appendChild(particle);
+    }
+  }
+
+  // 5. Параллакс эффект для карточек
+  document.addEventListener('mousemove', (e) => {
+    const cards = document.querySelectorAll('.note-card, .about-card');
+    const mouseX = e.clientX / window.innerWidth - 0.5;
+    const mouseY = e.clientY / window.innerHeight - 0.5;
+    
+    cards.forEach((card, index) => {
+      const speed = (index + 1) * 10;
+      const x = mouseX * speed;
+      const y = mouseY * speed;
+      card.style.transform = `perspective(1000px) rotateY(${x}deg) rotateX(${-y}deg)`;
+    });
+  });
+
+  // 6. Hover эффект для skill tags
+  const skillTags = document.querySelectorAll('.skill-tag');
+  skillTags.forEach(tag => {
+    tag.addEventListener('mouseenter', () => {
+      const level = tag.getAttribute('data-level');
+      tag.style.setProperty('--fill-width', level + '%');
+    });
+  });
+
+});
+</script>

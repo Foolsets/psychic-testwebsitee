@@ -1,0 +1,167 @@
+{% if dgHome %}
+<div class="dg-home">
+  <!-- ASCII Skater -->
+  <div class="ascii-skater-container">
+    <div class="ascii-skater" id="skater">🛹</div>
+  </div>
+  
+<!-- HERO SECTION v2.0 -->
+<section class="dg-home-hero">
+  
+  <!-- Плавающие частицы фона -->
+  <div class="particles-container" id="particles"></div>
+  
+  <!-- ASCII Art анимированный -->
+  <div class="ascii-hero">
+    <pre class="ascii-logo" id="ascii-logo"></pre>
+  </div>
+
+  <!-- Главный заголовок с глитчем -->
+  <div class="hero-content">
+    <h1 class="glitch-title" data-text="NEURAL ARTIST">
+      NEURAL ARTIST
+    </h1>
+    <h2 class="subtitle typewriter" id="typewriter"></h2>
+  </div>
+
+  <!-- Карточка "Обо мне" -->
+  <div class="about-card">
+    <div class="card-header">
+      <span class="status-dot online"></span>
+      <span class="status-text">online</span>
+      <span class="card-title">~/about-me</span>
+    </div>
+    <div class="card-body">
+      <div class="avatar-section">
+        <div class="avatar-frame">
+          <div class="avatar-glitch">🎨</div>
+        </div>
+        <div class="quick-info">
+          <div class="info-line">
+            <span class="label">role:</span>
+            <span class="value">AI Artist</span>
+          </div>
+          <div class="info-line">
+            <span class="label">stack:</span>
+            <span class="value">ComfyUI • Open Source</span>
+          </div>
+          <div class="info-line">
+            <span class="label">mission:</span>
+            <span class="value">Democratize AI Art</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="bio-text">
+        <p>Создаю визуальные миры с помощью нейросетей. 
+        Строю open-source инструменты для художников.</p>
+        <p>Работаю в <span class="highlight">ComfyUI</span>, 
+        экспериментирую с <span class="highlight">Stable Diffusion</span>, 
+        делюсь знаниями.</p>
+      </div>
+
+      <!-- Интерактивные теги-навыки -->
+      <div class="skills-cloud">
+        <span class="skill-tag" data-level="95">ComfyUI</span>
+        <span class="skill-tag" data-level="90">SDXL</span>
+        <span class="skill-tag" data-level="85">LoRA</span>
+        <span class="skill-tag" data-level="80">Python</span>
+        <span class="skill-tag" data-level="75">WebGL</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Статистика/достижения -->
+  <div class="stats-row">
+    <div class="stat-item">
+      <div class="stat-number" data-target="50">0</div>
+      <div class="stat-label">Models</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number" data-target="10">0</div>
+      <div class="stat-label">Open Source</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number" data-target="1000">0</div>
+      <div class="stat-label">Renders</div>
+    </div>
+  </div>
+
+  <!-- Навигация -->
+  <div class="hero-links">
+    <a href="/notes/projects" class="nav-btn primary">
+      <span class="btn-icon">⚡</span>
+      <span class="btn-text">Проекты</span>
+    </a>
+    <a href="/notes/comfyui-guide" class="nav-btn secondary">
+      <span class="btn-icon">🧠</span>
+      <span class="btn-text">ComfyUI Гайды</span>
+    </a>
+    <a href="/notes/models" class="nav-btn tertiary">
+      <span class="btn-icon">🎨</span>
+      <span class="btn-text">Модели</span>
+    </a>
+    <a href="https://github.com/Foolsets" class="nav-btn github" target="_blank">
+      <span class="btn-icon">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+          <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+        </svg>
+      </span>
+      <span class="btn-text">GitHub</span>
+    </a>
+  </div>
+
+</section>
+
+<!-- Последние статьи -->
+<section class="recent-notes">
+  <h3 class="section-title">
+    <span class="title-icon">>></span>
+    Последние записи
+  </h3>
+  <div class="notes-grid">
+    {%- for note in collections.note | reverse | limit(6) -%}
+    <article class="note-card" style="--delay: {{ loop.index * 0.1 }}s">
+      <div class="card-glow"></div>
+      <a href="{{ note.url }}" class="card-link">
+        <h4>{{ note.data.title or note.fileSlug }}</h4>
+        <p class="excerpt">{{ note.templateContent | striptags | truncate(100) }}</p>
+        <div class="card-meta">
+          <span class="date">{{ note.date | dateDisplay }}</span>
+          <span class="read-more">читать →</span>
+        </div>
+      </a>
+    </article>
+    {%- endfor -%}
+  </div>
+</section>
+</div>
+
+<script>
+// Terminal typing
+const lines = [
+  '> initializing skate_mode...',
+  '> loading neon shaders... [OK]',
+  '> system ready. welcome!'
+];
+let lineIdx = 0;
+let charIdx = 0;
+const term = document.getElementById('terminal-text');
+
+function typeLine() {
+  if (lineIdx < lines.length) {
+    if (charIdx < lines[lineIdx].length) {
+      term.innerHTML += lines[lineIdx][charIdx];
+      charIdx++;
+      setTimeout(typeLine, 30);
+    } else {
+      term.innerHTML += '<br>';
+      lineIdx++;
+      charIdx = 0;
+      setTimeout(typeLine, 300);
+    }
+  }
+}
+setTimeout(typeLine, 500);
+</script>
+{% endif %}
